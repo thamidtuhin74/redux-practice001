@@ -23,3 +23,23 @@ const decrementalCountAction = ()=>{
         type: DECREMENT
     };
 } 
+
+// create reducer 
+// reducer->> pure function that defintely returns a value
+
+const counterReducer = (state , action) =>{
+    switch (action.type) {
+        case INCREMENT:
+            return{
+                ...state,//for multiple state
+                count: state.count + 1
+            }
+        case DECREMENT:
+            return{
+                ...state,//for multiple state
+                count: state.count - 1
+            }
+        default:
+            state;
+    }
+}
