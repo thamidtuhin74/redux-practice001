@@ -1,9 +1,14 @@
+const { createStore } = require("redux");
+// import { createStore } from 'redux'
+// import {createStore} from "store";
+// const {createStore} = require("redux")
+
 const INCREMENT = 'INCREMENT';
 const DECREMENT = 'DECREMENT';
 
 
 const incrementalCounterState= {
-    count: 0
+    count: 0,
 }
 
 const incrementalUserState= {
@@ -27,7 +32,7 @@ const decrementalCountAction = ()=>{
 // create reducer 
 // reducer->> pure function that defintely returns a value
 
-const counterReducer = (state , action) =>{
+const counterReducer = (state=incrementalCounterState , action) =>{
     switch (action.type) {
         case INCREMENT:
             return{
@@ -43,3 +48,25 @@ const counterReducer = (state , action) =>{
             state;
     }
 }
+// store -  getState , dispatch , subscribe
+
+// create store --> subscribe --> dispatch
+
+const store = createStore(counterReducer);
+
+store.subscribe(()=>{
+    console.log(store.getState());
+})
+
+//dispatch action
+// dispatch is a object
+
+store.dispatch(incrementalCountAction());
+store.dispatch(incrementalCountAction());
+store.dispatch(incrementalCountAction());
+
+store.dispatch(decrementalCountAction());
+store.dispatch(decrementalCountAction());
+
+
+// import createStore
