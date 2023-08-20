@@ -5,7 +5,7 @@ const { createStore } = require("redux");
 
 const INCREMENT = 'INCREMENT';
 const DECREMENT = 'DECREMENT';
-
+const RESET = "RESET";
 
 const incrementalCounterState= {
     count: 0,
@@ -29,6 +29,12 @@ const decrementalCountAction = ()=>{
     };
 } 
 
+const resetCounter = ()=>{
+    return{
+        type: RESET
+    }
+}
+
 // create reducer 
 // reducer->> pure function that defintely returns a value
 
@@ -44,8 +50,11 @@ const counterReducer = (state=incrementalCounterState , action) =>{
                 ...state,//for multiple state
                 count: state.count - 1
             }
-        default:
-            state;
+        
+        case RESET:
+            return{
+                count: 0
+            }
     }
 }
 // store -  getState , dispatch , subscribe
@@ -67,6 +76,10 @@ store.dispatch(incrementalCountAction());
 
 store.dispatch(decrementalCountAction());
 store.dispatch(decrementalCountAction());
+
+store.dispatch(resetCounter());
+store.dispatch(incrementalCountAction());
+
 
 
 // import createStore
