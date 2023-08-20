@@ -6,13 +6,16 @@ const { createStore } = require("redux");
 const INCREMENT = 'INCREMENT';
 const DECREMENT = 'DECREMENT';
 const RESET = "RESET";
+const INCREMENT_By_Value = "INCREMENT_By_Value";
+const ADD_USER = "ADD_USER"
 
 const incrementalCounterState= {
     count: 0,
 }
 
 const incrementalUserState= {
-    name: 'Tuhin',
+    users: ['Tuhin'],
+    count: 1,
     age: '24'
 }
 
@@ -20,6 +23,13 @@ const incrementalUserState= {
 const incrementalCountAction = ()=>{
     return {
         type: INCREMENT
+    };
+} 
+
+const incrementalCountActionByValue = (value)=>{
+    return {
+        type: INCREMENT_By_Value,
+        payload: value
     };
 } 
 
@@ -35,25 +45,44 @@ const resetCounter = ()=>{
     }
 }
 
+const addUser = (user)=>{
+    return{
+        type: ADD_USER,
+        payload: user
+    }
+}
+
 // create reducer 
 // reducer->> pure function that defintely returns a value
 
-const counterReducer = (state=incrementalCounterState , action) =>{
+// const counterReducer = (state=incrementalCounterState , action) =>{
+const counterReducer = (state=incrementalUserState , action) =>{
     switch (action.type) {
-        case INCREMENT:
-            return{
-                ...state,//for multiple state
-                count: state.count + 1
-            }
-        case DECREMENT:
-            return{
-                ...state,//for multiple state
-                count: state.count - 1
-            }
+        // case INCREMENT:
+        //     return{
+        //         ...state,//for multiple state
+        //         count: state.count + 1
+        //     }
+        // case INCREMENT_By_Value:
+        //     return{
+        //         ...state,//for multiple state
+        //         count: state.count + action.payload
+        //     }
+        // case DECREMENT:
+        //     return{
+        //         ...state,//for multiple state
+        //         count: state.count - 1
+        //     }
         
-        case RESET:
+        // case RESET:
+        //     return{
+        //         count: 0
+        //     }
+
+        case ADD_USER:
             return{
-                count: 0
+                users: [...state.users, action.payload,],
+                count: state.count + 1
             }
     }
 }
@@ -70,15 +99,24 @@ store.subscribe(()=>{
 //dispatch action
 // dispatch is a object
 
-store.dispatch(incrementalCountAction());
-store.dispatch(incrementalCountAction());
-store.dispatch(incrementalCountAction());
+// store.dispatch(incrementalCountAction());
+// store.dispatch(incrementalCountAction());
+// store.dispatch(incrementalCountAction());
 
-store.dispatch(decrementalCountAction());
-store.dispatch(decrementalCountAction());
+// store.dispatch(decrementalCountAction());
+// store.dispatch(decrementalCountAction());
 
-store.dispatch(resetCounter());
-store.dispatch(incrementalCountAction());
+// store.dispatch(resetCounter());
+// store.dispatch(incrementalCountAction());
+store.dispatch(incrementalCountActionByValue(10));
+
+store.dispatch(incrementalCountActionByValue(7));
+store.dispatch(addUser("tahmid"));
+
+store.dispatch(addUser("Masud"));
+store.dispatch(addUser("Palash"));
+store.dispatch(addUser("Rasel"));
+
 
 
 
